@@ -19,3 +19,14 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+// Close button in messages
+// TODO: make it work 
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;

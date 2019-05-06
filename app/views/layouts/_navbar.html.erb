@@ -1,0 +1,27 @@
+<div class="ui attached stackable menu">
+  <div class="ui container">
+    <a class="item" href="<%= root_path %>">
+      <i class="home icon"></i> Home
+    </a>
+
+    
+    <% if logged_in? %>
+      <div class="ui simple dropdown right item">
+        <%= current_user.first_name %>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="<%= edit_user_path(current_user) %>"><i class="edit icon"></i> Edit Profile</a>
+          <%= link_to raw('<i class="logout icon"></i> Signout'), signout_path, method: :delete, class: 'item' %>
+        </div>
+      </div>
+      
+    <% else %>
+      <div class="right menu">
+        <a class="item" href="<%= signin_path %>"><i class="sign-in icon"></i> Sign in </a>
+        <a class="item" href="<%= signup_path %>"><i class="signup icon"></i> Sign up </a>
+      </div>
+    <% end %>
+    
+
+  </div>
+</div>
