@@ -30,3 +30,4 @@ $('.message .close')
     ;
   })
 ;
+
