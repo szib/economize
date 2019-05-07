@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to user
     else
-      flash[:error] = 'Invalid email or password. Try again.'
+      flash[:negative] = 'Invalid email or password. Try again.'
       render 'new'
     end
   end

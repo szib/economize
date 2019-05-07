@@ -16,31 +16,31 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'User successfully created'
+      flash[:positive] = "Welcome, #{user.first_name}. Have a good time here. 😀"
       log_in @user
       redirect_to @user
     else
-      flash[:error] = 'Something went wrong'
+      flash[:negative] = 'Something went wrong'
       render 'new'
     end
   end
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = 'User was successfully updated'
+      flash[:positive] = 'Your details were successfully updated.'
       redirect_to @user
     else
-      flash[:error] = 'Something went wrong'
+      flash[:negative] = 'Something went wrong'
       render 'edit'
     end
   end
 
   def destroy
     if @user.destroy
-      flash[:success] = 'User was successfully deleted'
+      flash[:positive] = 'Sorry to see you go.'
       redirect_to @users_path
     else
-      flash[:error] = 'Something went wrong'
+      flash[:negative] = 'Something went wrong'
       redirect_to @users_path
     end
   end
