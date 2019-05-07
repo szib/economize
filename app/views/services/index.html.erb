@@ -1,0 +1,18 @@
+<div class="ui raised text container">
+  <table class="ui single line table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @services.each do |service| %>
+        <tr>
+          <td><%= link_to service.name, service %></td>
+          <td><%= service.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
