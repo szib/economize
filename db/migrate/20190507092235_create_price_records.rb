@@ -4,6 +4,8 @@ class CreatePriceRecords < ActiveRecord::Migration[5.2]
       t.datetime :effective_from
       t.float :monthly_price
       t.float :joining_fee
+      t.float :service_id
+      t.timestamps
     end
   end
 end

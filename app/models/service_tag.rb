@@ -1,4 +1,4 @@
-class ServiceTags < ApplicationRecord
+class ServiceTag < ApplicationRecord
   belongs_to :tag
   belongs_to :service
 
