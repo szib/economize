@@ -1,5 +1,8 @@
 class Account < ApplicationRecord
-  has_many :subscriptions 
+  belongs_to :user
+  has_many :subscriptions
+
+  validates :user_id, presence: true
 
   #display to user on the dashboard
   def total_spend_for_current_month
