@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   valid_attributes = {
-    name: 'Arya Stark',
+    first_name: 'Arya',
+    last_name: 'Stark',
     email: 'arya@winterfell.no',
     password: 'foobar',
     password_confirmation: 'foobar'
@@ -16,13 +17,24 @@ RSpec.describe User, type: :model do
     expect(@user).to be_valid
   end
 
-  describe ':name' do
+  describe ':first_name' do
     it 'invalid if nil' do
-      @user.name = nil
+      @user.first_name = nil
       expect(@user).to_not be_valid
     end
     it 'invalid if empty' do
-      @user.name = ''
+      @user.first_name = ''
+      expect(@user).to_not be_valid
+    end
+  end
+
+  describe ':last_name' do
+    it 'invalid if nil' do
+      @user.last_name = nil
+      expect(@user).to_not be_valid
+    end
+    it 'invalid if empty' do
+      @user.last_name = ''
       expect(@user).to_not be_valid
     end
   end
