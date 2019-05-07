@@ -1,9 +1,42 @@
 <div class="ui attached stackable menu">
   <div class="ui container">
-    <a class="item" href="<%= root_path %>">
-      <i class="home icon"></i> Home
-    </a>
 
+    
+    <% if logged_in? %>
+      <a class="item" href="<%= dashboard_path %>">
+        <i class="dashboard icon"></i> Dashboard
+      </a>
+    <% else %>
+      <a class="item" href="<%= root_path %>">
+        <i class="home icon"></i> Home
+      </a>
+    <% end %>
+
+    
+    <% if logged_in? %>
+      <div class="ui simple dropdown item">
+        <i class="handshake icon"></i>
+        Manage subscriptions
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <%= link_to raw('<i class="list icon"></i> List'), root_path, class: 'item' %>
+          <%= link_to raw('<i class="add icon"></i> Add subscription'), root_path, class: 'item' %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if logged_in? %>
+      <div class="ui simple dropdown item">
+        <i class="newspaper icon"></i>
+        Services
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <%= link_to raw('<i class="list icon"></i> List'), root_path, class: 'item' %>
+          <%= link_to raw('<i class="add icon"></i> Add subscription'), root_path, class: 'item' %>
+        </div>
+      </div>
+    <% end %>
+    
     
     <% if logged_in? %>
       <div class="ui simple dropdown right item">

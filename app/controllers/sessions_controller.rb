@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     authenticated = user.try(:authenticate, params[:session][:password])
     if authenticated
       log_in user
-      redirect_to user
+      redirect_to dashboard_path
     else
       flash[:negative] = 'Invalid email or password. Try again.'
       render 'new'
