@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th class="ui center aligned header">Name</th>
+        <th class="ui center aligned header">Current price</th>
         <th class="ui center aligned header">Description</th>
       </tr>
     </thead>
@@ -10,6 +11,7 @@
       <% @services.each do |service| %>
         <tr>
           <td class="ui center aligned header"><%= link_to service.name, service %></td>
+          <td class="ui center aligned"><%= format_price(service.current_price) %></td>
           <td><%= service.description %></td>
         </tr>
       <% end %>

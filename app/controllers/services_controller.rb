@@ -5,7 +5,9 @@ class ServicesController < ApplicationController
     @services = Service.all
   end
 
-  def show; end
+  def show
+    @current_price = format_price(@service.current_price)
+  end
 
   def new
     @service = Service.new
