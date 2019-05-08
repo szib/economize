@@ -27,7 +27,8 @@ services = []
 20.times do
   hash = {
     name: Faker::App.name,
-    description: Faker::Lorem.paragraph_by_chars(256, false)
+    description: Faker::Lorem.paragraph_by_chars(256, false),
+    visitor_count: (0..300).to_a.sample
   }
   services << hash
 end
