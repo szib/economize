@@ -49,7 +49,6 @@ Service.all.each do |service|
     {
       effective_from: date,
       monthly_price: baseprice + idx,
-      joining_fee: 0,
       service_id: service.id
     }
   end
