@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:positive] = "Welcome, #{@user.first_name}. Have a good time here. 😀"
+      Account.create(user_id: @user.id)
       log_in @user
       redirect_to @user
     else
