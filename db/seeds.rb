@@ -57,3 +57,5 @@ subscription_3 = Subscription.create(start_date: DateTime.new(2018, 12, 8), end_
 subscription_4 = Subscription.create(start_date: DateTime.new(2017, 12, 23), end_date: DateTime.new(2018, 12, 21),  account_id: 1, service_id: 1)
 subscription_5 = Subscription.create(start_date: DateTime.new(2018, 8, 15), end_date: DateTime.new(2018, 11, 22),  account_id: 3, service_id: 3)
 subscription_6 = Subscription.create(start_date: DateTime.new(2018, 12, 8), end_date: DateTime.new(2018, 12, 14),  account_id: 4, service_id: 2)
+subscription_7 = Subscription.create(start_date: DateTime.now, end_date: nil,  account_id: 1, service_id: 3)
+subscription_8 = Subscription.create(start_date: DateTime.now, end_date: nil,  account_id: 1, service_id: 2)
