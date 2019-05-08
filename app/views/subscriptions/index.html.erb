@@ -1,25 +1,13 @@
 <div class="ui text container">
   <div class="ui grid">
-  
+
   <% @subscriptions.each do |subscription| %>
-    <div class="row">
-      <div class="ten wide column">
         <%= link_to subscription.service.name, subscription.service %>
-      </div>
-      <div class="column">
+
         <%= format_price(subscription.service.current_price) %>/month
-      </div>
-    </div>
+
+        <%= link_to 'cancel subscription',
+                cancel_subscription_path(subscription.id),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' } %> <br>
   <% end %>
-
-    <div class="row">
-      <div class="ten wide right aligned column">
-      Total
-      </div>
-      <div class="column">
-        [TOTAL_PRICE]
-      </div>
-    </div>
-
-  </div>
-</div>

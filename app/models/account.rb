@@ -5,8 +5,10 @@ class Account < ApplicationRecord
   validates :user_id, presence: true
 
 
+  def active_subscriptions
+    subscriptions.select(&:active?)
+  end
   #data to display to user on the dashboard
-
   def most_expensive_service
     #services with highest monthly fees that user is currently subscribed to
     #returns hash e.g. {"Netflix"=>20.1}
@@ -68,7 +70,7 @@ end
         current_service_price = service.price_records.sort_by{|pr| pr.effective_from}.map(&:monthly_price).last
         date = service.price_records.sort_by{|pr| pr.effective_from}.map(&:effective_from).last
         month_difference = (year * 12 + month) - (date.year * 12 + date.month)
-      
+
         if current_service_price != nil && monthly_increase != nil
           total_spent = total_spent+((month_difference*monthly_increase)+current_service_price)
         else

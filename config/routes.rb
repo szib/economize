@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#index'
 
   root 'welcome#home'
+  delete '/subscriptions/:id/cancel', to: 'subscriptions#cancel', as: 'cancel_subscription'
+
 end
