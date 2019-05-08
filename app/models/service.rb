@@ -3,6 +3,8 @@ class Service < ApplicationRecord
   has_many :service_tags
   has_many :price_records
 
+  accepts_nested_attributes_for :price_records
+
   validates :name, presence: true, uniqueness: true
 
   def oldest_price_record
