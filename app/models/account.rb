@@ -2,9 +2,6 @@ class Account < ApplicationRecord
   belongs_to :user
   has_many :subscriptions
 
-  validates :user_id, presence: true
-
-
   def active_subscriptions
     subscriptions.select(&:active?)
   end

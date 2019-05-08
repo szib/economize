@@ -4,8 +4,6 @@ class Subscription < ApplicationRecord
   belongs_to :service
 
   validates :start_date, presence: true
-  validates :account_id, presence: true
-  validates :service_id, presence: true
   validate :user_has_no_active_subscrpition
 
  def user_has_no_active_subscrpition
