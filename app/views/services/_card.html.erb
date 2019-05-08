@@ -1,0 +1,19 @@
+<div class="ui card">
+  <div class="content">
+    <h2 class="header"><%= service.name %></h2>
+    <div class="meta">
+      <span class="date"><%= format_price(service.current_price) %>/month</span>
+    </div>
+    <div class="description">
+      <%= service.description %>
+    </div>
+  </div>
+  <div class="extra content">
+    <i class="user icon"></i>
+    <%= service.visitor_count %> visitors
+  </div>
+  <div class="ui bottom attached button">
+    <i class="add icon"></i>
+    <%= link_to 'More', service %>
+  </div>
+</div>
