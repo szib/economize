@@ -13,12 +13,15 @@ class ServicesController < ApplicationController
 
   def new
     @service = Service.new
+    @service.price_records.build
   end
 
   def edit; end
 
   def create
     @service = Service.new(service_params)
+    @service.price_records.last.effective_from = DateTime.now
+
     if @service.save
       flash[:success] = 'Service successfully created'
       redirect_to @service
@@ -55,6 +58,6 @@ class ServicesController < ApplicationController
   end
 
   def service_params
-    params.require(:service).permit(:name, :description)
+    params.require(:service).permit(:name, :description, price_records_attributes: %i[monthly_price])
   end
 end
