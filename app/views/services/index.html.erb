@@ -1,7 +1,7 @@
 <div class="ui container">
   <div class="ui three column cards">
     <% @services.each do |service| %>
-      <%= render 'card', service: service %>
+      <%= render 'card', service: service, show_more_button: true %>
     <% end %>
   </div>
 </div>

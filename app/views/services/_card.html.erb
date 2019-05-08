@@ -12,8 +12,13 @@
     <i class="user icon"></i>
     <%= service.visitor_count %> visitors
   </div>
-  <div class="ui bottom attached button">
-    <i class="add icon"></i>
-    <%= link_to 'More', service %>
-  </div>
+  <% if @price_records %>
+    <%= render 'price_history', price_records: @price_records %>
+  <% end %>
+  <% if show_more_button %>
+    <div class="ui bottom attached button">
+      <i class="add icon"></i>
+      <%= link_to 'More', service %>
+    </div>
+  <% end %>
 </div>

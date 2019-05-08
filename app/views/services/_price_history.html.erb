@@ -1,0 +1,16 @@
+<div class="ui extra content two column grid">
+  <div class="sixteen wide center aligned black column">
+    <h4 class="header">Price history</h4>
+  </div>
+  <% price_records.each do |price_record| %>
+    <div class="center aligned column">
+      <%= format_date(price_record.effective_from) %>
+    </div>
+    <div class="center aligned column">
+      <%= format_price(price_record.monthly_price) %>
+    </div>
+  <% end %>
+  <div class="sixteen wide center aligned column">
+    <%= link_to raw('<i class="add icon"></i> Add price'), root_path, class: 'ui primary button'%>
+  </div>
+</div>

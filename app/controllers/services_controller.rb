@@ -7,6 +7,8 @@ class ServicesController < ApplicationController
 
   def show
     @current_price = format_price(@service.current_price)
+    @price_records = @service.price_records.sort_by(&:effective_from)
+
     @service.visitor_count = @service.visitor_count + 1
     @service.save
   end
