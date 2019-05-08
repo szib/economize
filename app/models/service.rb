@@ -13,4 +13,8 @@ class Service < ApplicationRecord
     price_records.max_by(&:effective_from)
   end
 
+  def current_price
+    most_recent_price_record.monthly_price
+  end
+
 end
