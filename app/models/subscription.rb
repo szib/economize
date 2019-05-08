@@ -6,8 +6,18 @@ class Subscription < ApplicationRecord
   validates :start_date, presence: true
   validates :account_id, presence: true
   validates :service_id, presence: true
+  validate :user_has_no_active_subscrpition
 
+ def user_has_no_active_subscrpition
+   account = Account.find(account_id)
+   subscription = account.subscriptions.find_by(service_id: service_id)
 
+   errors.add(:base, 'Already subscribed.') if subscription&.active?
+ end
+
+  def active?
+    self.end_date.nil?
+  end
 
   def subscription_length_in_months
     start_date = self.start_date

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users
   resources :services
+  resources :subscriptions
 
   get '/signup', to: 'users#new'
 
@@ -11,4 +12,6 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#index'
 
   root 'welcome#home'
+  delete '/subscriptions/:id/cancel', to: 'subscriptions#cancel', as: 'cancel_subscription'
+
 end

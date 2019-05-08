@@ -1,7 +1,7 @@
 <div class="ui attached stackable menu">
   <div class="ui container">
 
-    
+
     <% if logged_in? %>
       <a class="item" href="<%= dashboard_path %>">
         <i class="dashboard icon"></i> Dashboard
@@ -12,17 +12,17 @@
       </a>
     <% end %>
 
-    
+
     <% if logged_in? %>
       <div class="ui simple dropdown item">
         <i class="handshake icon"></i>
         Manage subscriptions
         <i class="dropdown icon"></i>
         <div class="menu">
-          <%= link_to raw('<i class="list icon"></i> List'), root_path, class: 'item' %>
-          <%= link_to raw('<i class="add icon"></i> Add subscription'), root_path, class: 'item' %>
+          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), subscriptions_path, class: 'item' %>
+          <%= link_to raw('<i class="add icon"></i> Add Subscription'), new_subscription_path, class: 'item' %>
+          </div>
         </div>
-      </div>
     <% end %>
 
     <% if logged_in? %>
@@ -36,8 +36,8 @@
         </div>
       </div>
     <% end %>
-    
-    
+
+
     <% if logged_in? %>
       <div class="ui simple dropdown right item">
         <%= current_user.first_name %>
@@ -47,14 +47,14 @@
           <%= link_to raw('<i class="logout icon"></i> Signout'), signout_path, method: :delete, class: 'item' %>
         </div>
       </div>
-      
+
     <% else %>
       <div class="right menu">
         <a class="item" href="<%= signin_path %>"><i class="sign-in icon"></i> Sign in </a>
         <a class="item" href="<%= signup_path %>"><i class="signup icon"></i> Sign up </a>
       </div>
     <% end %>
-    
+
 
   </div>
 </div>
