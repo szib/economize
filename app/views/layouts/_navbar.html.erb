@@ -19,10 +19,10 @@
         Manage subscriptions
         <i class="dropdown icon"></i>
         <div class="menu">
-          <%= link_to raw('<i class="list icon"></i> List'), root_path, class: 'item' %>
-          <%= link_to raw('<i class="add icon"></i> Add subscription'), root_path, class: 'item' %>
+          <%= link_to raw('<i class="list icon"></i> List'), subscriptions_path, class: 'item' %>
+          <%= link_to raw('<i class="add icon"></i> Add subscription'), new_subscription_path, class: 'item' %>
+          </div>
         </div>
-      </div>
     <% end %>
 
     <% if logged_in? %>

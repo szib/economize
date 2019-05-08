@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :users
   resources :services
+  resources :subscriptions
 
   get '/signup', to: 'users#new'
 
