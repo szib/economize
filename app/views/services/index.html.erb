@@ -1,15 +1,15 @@
 <div class="ui raised text container">
-  <table class="ui single line table">
+  <table class="ui selectable celled table">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
+        <th class="ui center aligned header">Name</th>
+        <th class="ui center aligned header">Description</th>
       </tr>
     </thead>
     <tbody>
       <% @services.each do |service| %>
         <tr>
-          <td><%= link_to service.name, service %></td>
+          <td class="ui center aligned header"><%= link_to service.name, service %></td>
           <td><%= service.description %></td>
         </tr>
       <% end %>
