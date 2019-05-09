@@ -1,7 +1,13 @@
 <div class="ui container">
   <div class="ui three column cards">
     <% @services.each do |service| %>
-      <%= render 'card', service: service, show_more_button: true %>
+      <% content_for :card_bottom, flush: true do  %>
+        <div class="ui bottom attached button">
+          <i class="add icon"></i>
+          <%= link_to 'More', service %>
+        </div>
+      <% end %>
+      <%= render 'card', service: service %>
     <% end %>
   </div>
 </div>
