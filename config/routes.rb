@@ -18,5 +18,9 @@ Rails.application.routes.draw do
   get '/dashboards', to: 'dashboards#index'
   get '/dashboards/:id', to: 'dashboards#show'
 
+  get '/service_stats', to: 'dashboards#service_stats', as: 'service_stats'
+  get '/user_stats/:id', to: 'dashboards#user_stats', as: 'user_stats'
+
+
   root 'welcome#home'
 end

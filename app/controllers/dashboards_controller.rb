@@ -3,6 +3,14 @@ class DashboardsController < ApplicationController
   #all info we can display to the user
   def index
     #general, service_related data
+    @current_user = current_user
+  end
+
+  def show
+  end
+
+  def service_stats
+    #general service data
     @most_addictive_three = Service.most_addictive_three
     @most_expensive_three = Service.most_expensive_three
     @ranked_by_total_users = Service.ranked_by_total_users
@@ -10,7 +18,7 @@ class DashboardsController < ApplicationController
     @ranked_by_predicted_price_in_6_months = Service.ranked_by_predicted_price_in_6_months
   end
 
-  def show
+  def user_stats
     #personal, user-specific data
     @active_subscriptions = current_user.account.active_subscriptions_ordered_by_price
     @most_expensive_service = current_user.account.most_expensive_service
@@ -21,15 +29,15 @@ class DashboardsController < ApplicationController
     @current_year = DateTime.now.year
     @cancelled_services = current_user.account.cancelled_services
 
-    #predictions
-    @predicted_spend_next_month = current_user.account.predicted_spending_in_x_time(DateTime.now.month + 1.month, DateTime.now.year)
-    @predicted_spend_3_months = current_user.account.predicted_spending_in_x_time(DateTime.now.month + 2.months, DateTime.now.year)
-    @predicted_spend_6_months = current_user.account.predicted_spending_in_x_time(DateTime.now.month + 5.months, DateTime.now.year)
+    #personalised predictions
+    @predicted_spend_next_month = current_user.account.predicted_spending_in_x_time(DateTime.now.month + 1, DateTime.now.year)
+    @predicted_spend_3_months = current_user.account.predicted_spending_in_x_time(DateTime.now.month + 2, DateTime.now.year)
+    @predicted_spend_6_months = current_user.account.predicted_spending_in_x_time(DateTime.now.month + 5, DateTime.now.year)
 
 
-    @most_addictive_three = Service.most_addictive_three
-    @most_expensive_three = Service.most_expensive_three
   end
+
+
 
 
 end

@@ -64,22 +64,40 @@ class Account < ApplicationRecord
  end
 
 
+ def total_monthly_increase
+   total = 0
+   services_of_active_subscriptions = self.subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
+   services_of_active_subscriptions.each do |service|
+     monthly_increase = service.avg_monthly_price_increase
+     if monthly_increase.nan?
+     end
+
+   end
+ end
+
+
+
  def predicted_spending_in_x_time(month, year)
      # method input = integer >= 1 and <= 12
      total_spent = 0
-     services_of_active_subscriptions = subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
+     services_of_active_subscriptions = self.subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
      services_of_active_subscriptions.each do |service|
        monthly_increase = service.avg_monthly_price_increase
-       last_price_record = service.most_recent_price_record
+       #last_price_record = service.most_recent_price_record
        current_service_price = service.current_price
        date = DateTime.now
-       month_difference = (year * 12 + month) - (date.year * 12 + date.month)
+       month_difference = ((year * 12 + month) - (date.year * 12 + date.month))
 
-       if !current_service_price.nil? && !monthly_increase.nil?
-         total_spent += ((month_difference * monthly_increase) + current_service_price)
+       if !current_service_price.nil? && !monthly_increase.nil? && !monthly_increase.nan?
+         total_spent = total_spent+((month_difference * monthly_increase) + current_service_price)
+       elsif !current_service_price.nil? && !monthly_increase.nil? && monthly_increase.nan?
+         total_spent = total_spent+current_service_price
        else
          total_spent = total_spent
        end
+       #puts monthly_increase
+       #puts month_difference
+       #puts current_service_price
      end
      total_spent
    end

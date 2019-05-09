@@ -1,0 +1,28 @@
+<h1> Welcome to your personal spending profile. </h1>
+
+<h2> Your active subscriptions:</h2>
+<% @active_subscriptions.each do |subscription| %>
+  <h2><%= subscription[0] %> - <%= format_price(subscription[1]) %></h2>
+<% end %>
+<h2> Subscription with highest monthly fee: </h2>
+ <h2><%= @most_expensive_service[0]%> - <%= format_price(@most_expensive_service[1])%> </h2>
+<h2> Total spent on (all) subscriptions:  <%= format_price(@lifetime_spend) %> </h2><br>
+<h2> Spending for the current month:  <%= format_price(@total_spend_current_month) %></h2><br>
+<h2> Breakdown of spending: </h2>
+<% @total_spend_by_subscription.each do |item| %>
+   <h2><%= item[0] %> - <%= format_price(item[1]) %></h2>
+<% end %>
+<h2> Subscriptions you've cancelled:</h2>
+<% if @cancelled_services == [] %>
+      <h2><%= 'none' %></h2>
+<% else %>
+      <h2><%= @cancelled_services %></h2>
+<% end %>
+
+
+<h2> Predictions for future spending, based on your active subscriptions and estimated increases
+  in subscription prices. </h2>
+
+<h2> Predicted spending for the next month: <%= format_price(@predicted_spend_next_month) %>  </h2>
+<h2> Predicted monthly spending for 3 months from now: <%= format_price(@predicted_spend_3_months) %>  </h2>
+<h2> Predicted monthly spending for 6 months from now: <%= format_price(@predicted_spend_6_months) %>  </h2>

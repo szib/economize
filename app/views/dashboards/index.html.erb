@@ -1,26 +1,18 @@
-                             <h1>Dashboard</h1>
-                      <h1> General Service Stats </h1>
-          <h2> Most addictive services, ranked: </h2>
-          <h1> 1. <%= @most_addictive_three.keys[0] %>, with <%= @most_addictive_three.values[0] %> returning users. </h1>
-          <h1> 1. <%= @most_addictive_three.keys[1] %>, with <%= @most_addictive_three.values[1] %> returning users. </h1>
-          <h1> 1. <%= @most_addictive_three.keys[2] %>, with <%= @most_addictive_three.values[2] %> returning users. </h1><br>
 
-          <h2> Most expensive services, ranked: </h2>
-          <h1> 1. <%= @most_expensive_three.keys[0] %>, at £<%= @most_expensive_three.values[0] %>. </h1>
-          <h1> 1. <%= @most_expensive_three.keys[1] %>, at £<%= @most_expensive_three.values[1] %>. </h1>
-          <h1> 1. <%= @most_expensive_three.keys[2] %>, at £<%= @most_expensive_three.values[2] %>. </h1><br>
 
-          <h2> Ranked by total number of users: </h2>
-          <% @ranked_by_total_users.each_with_index do |item, index| %> </h1>
-            <h1> <%= index+1 %>. <%= item[0] %>,  number of users:  <%= item[1] %> </h1>
-          <% end %>
+<h2 class="fluid ui center aligned huge icon header">
+  <i class="dashboard icon"></i>
+  <div class="content">
+    Dashboard Menu
+    <div class="sub header">View the most recent stats across all services, view your subscription spending, and manage your subscriptions.</div>
+  </div>
+</h2>
 
-          <h2> Ranked by total value of subscriptions: </h2>
-          <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %> </h1>
-            <h1> <%= index+1 %>. <%= item[0] %>, at £<%= item[1] %> </h1>
-          <% end %>
 
-          <h2> Ranked by predicted monthly price in 6 months: </h1>
-          <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %> </h1>
-            <h1> <%= index+1 %>. <%= item[0] %>, at £<%= item[1] %> </h1>
-          <% end %>
+<button class= "fluid massive ui olive floated button"><%= link_to 'General Service Stats', service_stats_path %></button><br><br>
+
+  <div class="fluid massive ui olive vertical animated button" tabindex="0">
+    <div class="hidden content"><%= link_to 'Personal Spending Profile', user_stats_path(current_user.id) %></div>
+    <div class="visible content">
+      <i class="chart pie icon"></i>
+  </div>
