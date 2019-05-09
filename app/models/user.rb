@@ -16,4 +16,12 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def subscriptions
+    account.subscriptions
+  end
+
+  def active_subscriptions
+    account.active_subscriptions
+  end
 end

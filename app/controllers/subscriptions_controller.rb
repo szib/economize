@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
   before_action :find_subscription, except: %i[index new create]
 
   def index
-    @subscriptions = current_user.account.active_subscriptions
+    @subscriptions = current_user.active_subscriptions
   end
 
   def show; end
@@ -42,13 +42,13 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.find(params[:id])
     @subscription.end_date = DateTime.now
     @subscription.save
-    flash[:success] = "Subscription cancelled"
+    flash[:success] = 'Subscription cancelled'
     redirect_to subscriptions_path
   end
 
   def destroy
     @subscription = Subscription.find(params[:id]).destroy
-  #  @article.destroy
+    #  @article.destroy
     if @subscription.destroy
       flash[:success] = 'Subscription was successfully deleted'
       redirect_to subscriptions_path
@@ -67,5 +67,4 @@ class SubscriptionsController < ApplicationController
   def subscription_params
     params.require(:subscription).permit(:service_id)
   end
-
 end
