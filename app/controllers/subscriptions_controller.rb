@@ -1,8 +1,13 @@
 class SubscriptionsController < ApplicationController
-  before_action :find_subscription, except: %i[index new create]
+  before_action :find_subscription, except: %i[index new create archive]
 
   def index
     @subscriptions = current_user.active_subscriptions
+  end
+
+  def archive
+    @subscriptions = current_user.cancelled_subscriptions
+    render 'index'
   end
 
   def show; end

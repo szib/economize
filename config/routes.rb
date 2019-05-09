@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :users
   resources :services
+
+  get '/subscriptions/archive', to: 'subscriptions#archive', as: 'archive_subscriptions'
   resources :subscriptions
 
   get '/signup', to: 'users#new'
@@ -13,5 +15,4 @@ Rails.application.routes.draw do
 
   root 'welcome#home'
   delete '/subscriptions/:id/cancel', to: 'subscriptions#cancel', as: 'cancel_subscription'
-
 end

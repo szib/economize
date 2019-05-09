@@ -24,4 +24,8 @@ class User < ApplicationRecord
   def active_subscriptions
     account.active_subscriptions
   end
+
+  def cancelled_subscriptions
+    account.cancelled_subscriptions
+  end
 end
