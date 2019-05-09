@@ -63,24 +63,26 @@ class Account < ApplicationRecord
     services_of_non_active_subscriptions.reject { |service| services_of_active_subscriptions.include?(service) }.uniq
  end
 
-  def predicted_spending_in_x_time(month, year)
-    # method input = integer >= 1 and <= 12
-    total_spent = 0
-    services_of_active_subscriptions = subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
-    services_of_active_subscriptions.each do |service|
-      monthly_increase = service.avg_monthly_price_increase
-      current_service_price = service.price_records.sort_by(&:effective_from).map(&:monthly_price).last
-      date = service.price_records.sort_by(&:effective_from).map(&:effective_from).last
-      month_difference = (year * 12 + month) - (date.year * 12 + date.month)
 
-      if !current_service_price.nil? && !monthly_increase.nil?
-        total_spent += ((month_difference * monthly_increase) + current_service_price)
-      else
-        total_spent = total_spent
-      end
-    end
-    total_spent
-  end
+ def predicted_spending_in_x_time(month, year)
+     # method input = integer >= 1 and <= 12
+     total_spent = 0
+     services_of_active_subscriptions = subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
+     services_of_active_subscriptions.each do |service|
+       monthly_increase = service.avg_monthly_price_increase
+       last_price_record = service.most_recent_price_record
+       current_service_price = service.current_price
+       date = DateTime.now
+       month_difference = (year * 12 + month) - (date.year * 12 + date.month)
+
+       if !current_service_price.nil? && !monthly_increase.nil?
+         total_spent += ((month_difference * monthly_increase) + current_service_price)
+       else
+         total_spent = total_spent
+       end
+     end
+     total_spent
+   end
 
   def budget_calculator; end
 

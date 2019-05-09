@@ -5,6 +5,9 @@ class DashboardsController < ApplicationController
     #general, service_related data
     @most_addictive_three = Service.most_addictive_three
     @most_expensive_three = Service.most_expensive_three
+    @ranked_by_total_users = Service.ranked_by_total_users
+    @ranked_by_total_value_of_subscriptions = Service.ranked_by_total_value_of_subscriptions
+    @ranked_by_predicted_price_in_6_months = Service.ranked_by_predicted_price_in_6_months
   end
 
   def show

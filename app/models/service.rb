@@ -36,32 +36,59 @@ class Service < ApplicationRecord
 
   # predictions
   def avg_monthly_price_increase
-    first_date = price_records.sort_by(&:effective_from).map(&:effective_from).first
-    final_date = price_records.sort_by(&:effective_from).map(&:effective_from).last
+    first_date = self.price_records.sort_by(&:effective_from).map(&:effective_from).first
+    final_date = self.price_records.sort_by(&:effective_from).map(&:effective_from).last
     monthly_difference = (final_date.year * 12 + final_date.month) - (first_date.year * 12 + first_date.month)
-    first_price = price_records.sort_by(&:effective_from).map(&:monthly_price).first
-    last_price = price_records.sort_by(&:effective_from).map(&:monthly_price).last
+    first_price = self.price_records.sort_by(&:effective_from).map(&:monthly_price).first
+    last_price = self.price_records.sort_by(&:effective_from).map(&:monthly_price).last
     price_difference = (last_price - first_price) / monthly_difference
     price_difference.round(2)
   end
 
   def avg_yearly_price_increase
-    avg_monthly_price_increase * 12.round(2)
+    self.avg_monthly_price_increase * 12.round(2)
  end
 
   def predicted_price_in_6_months
-    avg_monthly_price_increase * 6.round(2) + monthly_price_on_given_day(DateTime.now)
+    self.avg_monthly_price_increase * 6.round(2) + monthly_price_on_given_day(DateTime.now)
   end
 
   def predicted_price_in_3_months
-    avg_monthly_price_increase * 3.round(2) + monthly_price_on_given_day(DateTime.now)
+    self.avg_monthly_price_increase * 3.round(2) + monthly_price_on_given_day(DateTime.now)
   end
 
   def predicted_price_in_12_months
-    avg_monthly_price_increase * 12.round(2) + monthly_price_on_given_day(DateTime.now)
+    self.avg_monthly_price_increase * 12.round(2) + monthly_price_on_given_day(DateTime.now)
   end
 
-  def self.most_addictive_three
+  def self.ranked_by_predicted_price_in_6_months
+    h = {}
+    all.each do |service|
+      h[service.name] = service.predicted_price_in_6_months
+    end
+    h
+    #h.compact.sort_by { |_k, v| v }.reverse!.to_h
+  end
+
+ def self.ranked_by_total_value_of_subscriptions
+   h = {}
+   all.each do |service|
+     h[service.name] = service.total_spent_lifetime
+   end
+   h.sort_by { |_k, v| v }.reverse!.to_h
+end
+
+
+
+  def self.ranked_by_total_users
+    h = {}
+    all.each do |service|
+      h[service.name] = service.total_users_lifetime
+    end
+    h.sort_by { |_k, v| v }.reverse!.to_h
+ end
+
+ def self.most_addictive_three
     # service with the highest number of returning users
     # returns hash e.g. {"Spotify"=>3, "Netflix"=>1, "Amazon Prime"=>0}
     h = {}
