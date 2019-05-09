@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   post '/signin', to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
 
-  get '/dashboard', to: 'dashboard#index'
+  get '/dashboards', to: 'dashboards#index'
+  get '/dashboards/:id', to: 'dashboards#show'
 
   root 'welcome#home'
 end

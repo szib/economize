@@ -65,7 +65,7 @@ class Service < ApplicationRecord
     avg_monthly_price_increase * 3.round(2) + monthly_price_on_given_day(DateTime.now)
   end
 
-  def predicted_price_in_12_years
+  def predicted_price_in_12_months
     avg_monthly_price_increase * 12.round(2) + monthly_price_on_given_day(DateTime.now)
   end
 

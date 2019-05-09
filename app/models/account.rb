@@ -60,7 +60,7 @@ class Account < ApplicationRecord
     # returns array of names of non-active subscriptions
     services_of_non_active_subscriptions = subscriptions.reject { |subscription| subscription.end_date.nil? }.map(&:service).map(&:name)
     services_of_active_subscriptions = subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service).map(&:name)
-    services_of_non_active_subscriptions.reject { |service| services_of_active_subscriptions.include?(service) }
+    services_of_non_active_subscriptions.reject { |service| services_of_active_subscriptions.include?(service) }.uniq
  end
 
   def predicted_spending_in_x_time(month, year)

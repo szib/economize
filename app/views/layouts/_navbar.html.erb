@@ -1,7 +1,7 @@
 <div class="ui attached stackable menu">
   <div class="ui container">
     <% if logged_in? %>
-      <a class="item" href="<%= dashboard_path %>">
+      <a class="item" href="<%= dashboards_path %>">
         <i class="dashboard icon"></i> Dashboard
       </a>
     <% else %>
@@ -21,7 +21,8 @@
         <%= link_to raw('<i class="list icon"></i> List'), services_path, class: 'item' %>
       </div>
     </div>
-    <% if logged_in? %>
+
+   <% if logged_in? %>
       <div class="ui simple dropdown item">
         <i class="handshake icon"></i>
         Manage subscriptions
