@@ -18,11 +18,13 @@ class Service < ApplicationRecord
   end
 
   def current_price=(price)
-    PriceRecord.create(
-      service_id: id,
-      effective_from: DateTime.now,
-      monthly_price: price
-    )
+    if current_price != price.to_f
+      PriceRecord.create(
+        service_id: id,
+        effective_from: DateTime.now,
+        monthly_price: price.to_f
+      )
+    end
   end
 
   def total_users_lifetime
