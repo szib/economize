@@ -1,7 +1,7 @@
 class Service < ApplicationRecord
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :service_tags
-  has_many :price_records
+  has_many :price_records, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 
