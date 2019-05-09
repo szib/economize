@@ -14,7 +14,7 @@ class Service < ApplicationRecord
   end
 
   def current_price
-    most_recent_price_record.monthly_price
+    most_recent_price_record&.monthly_price
   end
 
   def current_price=(price)
