@@ -6,11 +6,9 @@
     <%= f.text_area :description, placeholder: 'Service description' %>
   </div>
 
-  <%= f.fields_for :price_records do |f_pr| %>
-    <div class="field">
-      <%= f_pr.text_field :monthly_price, placeholder: 'Monthly price' %>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= f.text_field :current_price, placeholder: 'Monthly price' %>
+  </div>
 
   <%= f.submit class: "ui primary button" %>
 <% end %>

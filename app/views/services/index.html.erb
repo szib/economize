@@ -4,7 +4,11 @@
       <% content_for :card_bottom, flush: true do  %>
         <div class="ui bottom attached button">
           <i class="add icon"></i>
-          <%= link_to 'More', service %>
+          <%= link_to 'More details', service %>
+        </div>
+        <div class="ui bottom attached button">
+          <i class="edit icon"></i>
+          <%= link_to 'Edit serivice', edit_service_path(service) %>
         </div>
       <% end %>
       <%= render 'card', service: service %>
