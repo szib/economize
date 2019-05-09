@@ -1,7 +1,5 @@
 <div class="ui attached stackable menu">
   <div class="ui container">
-
-
     <% if logged_in? %>
       <a class="item" href="<%= dashboard_path %>">
         <i class="dashboard icon"></i> Dashboard
@@ -11,35 +9,31 @@
         <i class="home icon"></i> Home
       </a>
     <% end %>
-
+    <div class="ui simple dropdown item">
+      <i class="newspaper icon"></i>
+      Services
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <% if logged_in? %>
+          <%= link_to raw('<i class="add icon"></i> Add service'), new_service_path, class: 'item' %>
+          <hr>
+        <% end %>
+        <%= link_to raw('<i class="list icon"></i> List'), services_path, class: 'item' %>
+      </div>
+    </div>
     <% if logged_in? %>
       <div class="ui simple dropdown item">
         <i class="handshake icon"></i>
         Manage subscriptions
         <i class="dropdown icon"></i>
         <div class="menu">
-          <%= link_to raw('<i class="add icon"></i> Add Subscription'), new_subscription_path, class: 'item' %>
+          <%= link_to raw('<i class="add icon"></i> Add Subscription'), new_user_subscription_path(current_user.id), class: 'item' %>
           <hr>
-          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), subscriptions_path, class: 'item' %>
-          <%= link_to raw('<i class="file archive icon"></i>  Archive'), archive_subscriptions_path, class: 'item' %>
-          </div>
-        </div>
-    <% end %>
-
-    <% if logged_in? %>
-      <div class="ui simple dropdown item">
-        <i class="newspaper icon"></i>
-        Services
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <%= link_to raw('<i class="add icon"></i> Add service'), new_service_path, class: 'item' %>
-          <hr>
-          <%= link_to raw('<i class="list icon"></i> List'), services_path, class: 'item' %>
+          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), user_subscriptions_path(current_user), class: 'item' %>
+          <%= link_to raw('<i class="file archive icon"></i>  Archive'), user_archive_subscriptions_path(current_user), class: 'item' %>
         </div>
       </div>
     <% end %>
-
-
     <% if logged_in? %>
       <div class="ui simple dropdown right item">
         <%= current_user.first_name %>
@@ -50,14 +44,11 @@
           <%= link_to raw('<i class="logout icon"></i> Signout'), signout_path, method: :delete, class: 'item' %>
         </div>
       </div>
-
     <% else %>
       <div class="right menu">
         <a class="item" href="<%= signin_path %>"><i class="sign-in icon"></i> Sign in </a>
         <a class="item" href="<%= signup_path %>"><i class="signup icon"></i> Sign up </a>
       </div>
     <% end %>
-
-
   </div>
 </div>

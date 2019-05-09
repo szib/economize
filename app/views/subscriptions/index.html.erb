@@ -8,7 +8,7 @@
         </div>
         <div class="ui bottom attached button">
           <i class="cancel icon"></i>
-          <%= link_to 'Cancel serivice', cancel_subscription_path(subscription), 
+          <%= link_to 'Cancel serivice', user_cancel_subscription_path(@user, subscription), 
                                                 method: :delete, 
                                                 data: { confirm: 'Are you sure?' } %>
         </div>
