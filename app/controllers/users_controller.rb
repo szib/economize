@@ -11,7 +11,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit; end
+  def edit
+    authorized_for(params[:id])
+  end
 
   def create
     @user = User.new(user_params)
@@ -27,6 +29,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    authorized_for(params[:id])
     if @user.update_attributes(user_params)
       flash[:positive] = 'Your details were successfully updated.'
       redirect_to @user
@@ -37,6 +40,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    authorized_for(params[:id])
     if @user.destroy
       flash[:positive] = 'Sorry to see you go.'
       redirect_to @users_path
