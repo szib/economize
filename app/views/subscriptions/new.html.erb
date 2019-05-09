@@ -1,6 +1,11 @@
-<h1> Add A Subscription (from an existing list of services) </h1>
-<h2> Choose from the following list: </h2>
-<%= form_for @subscription  do |f| %>
-  <%= f.collection_select :service_id, Service.all, :id, :name %>
-  <%= f.submit %>
-<% end %>
+<div class="ui raised very padded text container segment">
+  <h1>Subscribe to a new service</h1>
+  <%= form_for @subscription, html: { class: 'ui form' }  do |f| %>
+    <div class="field">
+      <%# TODO: show only possibe subscribtions with cards %>
+      <%= f.collection_select :service_id, Service.all, :id, :name %>
+    </div>
+
+    <%= f.submit 'Subscribe' ,class: "ui primary button" %>
+  <% end %>
+</div>

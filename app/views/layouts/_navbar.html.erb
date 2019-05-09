@@ -12,15 +12,16 @@
       </a>
     <% end %>
 
-
     <% if logged_in? %>
       <div class="ui simple dropdown item">
         <i class="handshake icon"></i>
         Manage subscriptions
         <i class="dropdown icon"></i>
         <div class="menu">
-          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), subscriptions_path, class: 'item' %>
           <%= link_to raw('<i class="add icon"></i> Add Subscription'), new_subscription_path, class: 'item' %>
+          <hr>
+          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), subscriptions_path, class: 'item' %>
+          <%= link_to raw('<i class="file archive icon"></i>  Archive'), archive_subscriptions_path, class: 'item' %>
           </div>
         </div>
     <% end %>
@@ -31,8 +32,9 @@
         Services
         <i class="dropdown icon"></i>
         <div class="menu">
-          <%= link_to raw('<i class="list icon"></i> List'), services_path, class: 'item' %>
           <%= link_to raw('<i class="add icon"></i> Add service'), new_service_path, class: 'item' %>
+          <hr>
+          <%= link_to raw('<i class="list icon"></i> List'), services_path, class: 'item' %>
         </div>
       </div>
     <% end %>
@@ -44,6 +46,7 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="<%= edit_user_path(current_user) %>"><i class="edit icon"></i> Edit Profile</a>
+          <hr>
           <%= link_to raw('<i class="logout icon"></i> Signout'), signout_path, method: :delete, class: 'item' %>
         </div>
       </div>
