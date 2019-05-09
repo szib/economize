@@ -42,11 +42,11 @@ class UsersController < ApplicationController
   def destroy
     authorized_for(params[:id])
     if @user.destroy
-      flash[:positive] = 'Sorry to see you go.'
-      redirect_to @users_path
+      flash[:positive] = 'Sorry to see you go. 😔😔😔'
+      redirect_to root_path
     else
       flash[:negative] = 'Something went wrong'
-      redirect_to @users_path
+      redirect_to @user
     end
   end
 

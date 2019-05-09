@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :account
+  has_one :account, dependent: :destroy
   before_validation { email&.downcase! }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze

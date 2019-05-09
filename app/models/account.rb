@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
   belongs_to :user
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
 
   def active_subscriptions
     subscriptions.select(&:active?)
