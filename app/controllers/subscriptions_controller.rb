@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
     @subscription.account_id = current_user.account.id
 
     if @subscription.save
-      flash[:success] = 'Subscription successfully created'
+      flash[:success] = "You successfully subscribed for #{@subscription.service_name}."
       redirect_to subscriptions_path
     else
       flash[:error] = 'Something went wrong'
@@ -33,29 +33,12 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  def update
-    if @subscription.update_attributes(subscription_params)
-      flash[:success] = 'Subscription was successfully updated'
-      redirect_to @subscription
-    else
-      flash[:error] = 'Something went wrong'
-      render 'edit'
-    end
-  end
-
   def cancel
     @subscription = Subscription.find(params[:id])
     @subscription.end_date = DateTime.now
-    @subscription.save
-    flash[:success] = 'Subscription cancelled'
-    redirect_to subscriptions_path
-  end
 
-  def destroy
-    @subscription = Subscription.find(params[:id]).destroy
-    #  @article.destroy
-    if @subscription.destroy
-      flash[:success] = 'Subscription was successfully deleted'
+    if @subscription.save
+      flash[:success] = "#{@subscription.service_name} has been cancelled."
       redirect_to subscriptions_path
     else
       flash[:error] = 'Something went wrong'

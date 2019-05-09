@@ -20,6 +20,10 @@ class Subscription < ApplicationRecord
     end_date.nil?
   end
 
+  def service_name
+    service.name
+  end
+
   def subscription_length_in_months
     start_date = self.start_date
     end_date = if !self.end_date.nil?
