@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  resources :users
   resources :services
-
-  # ========================================
-  #    SUBSCRIPTIONS
-  # ========================================
-  get '/subscriptions/archive', to: 'subscriptions#archive', as: 'archive_subscriptions'
-  delete '/subscriptions/:id/cancel', to: 'subscriptions#cancel', as: 'cancel_subscription'
-  resources :subscriptions, only: %i[index show new create]
+  resources :users do
+    # ========================================
+    #   NESTED ROUTES FOR SUBSCRIPTIONS
+    # ========================================
+    get '/subscriptions/archive', to: 'subscriptions#archive', as: 'archive_subscriptions'
+    delete '/subscriptions/:id/cancel', to: 'subscriptions#cancel', as: 'cancel_subscription'
+    resources :subscriptions, only: %i[index show new create]
+  end
 
   get '/signup', to: 'users#new'
 

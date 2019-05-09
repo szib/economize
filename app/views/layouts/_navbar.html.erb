@@ -18,10 +18,10 @@
         Manage subscriptions
         <i class="dropdown icon"></i>
         <div class="menu">
-          <%= link_to raw('<i class="add icon"></i> Add Subscription'), new_subscription_path, class: 'item' %>
+          <%= link_to raw('<i class="add icon"></i> Add Subscription'), new_user_subscription_path(current_user.id), class: 'item' %>
           <hr>
-          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), subscriptions_path, class: 'item' %>
-          <%= link_to raw('<i class="file archive icon"></i>  Archive'), archive_subscriptions_path, class: 'item' %>
+          <%= link_to raw('<i class="list icon"></i> My Subscriptions'), user_subscriptions_path(current_user), class: 'item' %>
+          <%= link_to raw('<i class="file archive icon"></i>  Archive'), user_archive_subscriptions_path(current_user), class: 'item' %>
           </div>
         </div>
     <% end %>
