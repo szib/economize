@@ -14,15 +14,18 @@ class ServicesController < ApplicationController
   end
 
   def new
+    authorized_for(current_user.id)
     @service = Service.new
     @current_price = @service.price_records.build
   end
 
   def edit
+    authorized_for(current_user.id)
     @current_price = @service.current_price
   end
 
   def create
+    authorized_for(current_user.id)
     @service = Service.new(service_params)
     if @service.save
       @service.current_price = service_params[:current_price]
@@ -35,6 +38,7 @@ class ServicesController < ApplicationController
   end
 
   def update
+    authorized_for(current_user.id)
     if @service.update_attributes(service_params)
       flash[:success] = 'Service was successfully updated'
       redirect_to @service
@@ -45,6 +49,7 @@ class ServicesController < ApplicationController
   end
 
   def destroy
+    authorized_for(current_user.id)
     if @service.destroy
       flash[:success] = 'Service was successfully deleted'
       redirect_to @services_path

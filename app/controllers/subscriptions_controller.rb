@@ -1,12 +1,13 @@
 class SubscriptionsController < ApplicationController
   before_action :find_subscription, except: %i[index new create archive]
+  before_action :find_user
 
   def index
-    @subscriptions = current_user.active_subscriptions
+    @subscriptions = @user.active_subscriptions
   end
 
   def archive
-    @subscriptions = current_user.cancelled_subscriptions
+    @subscriptions = @user.cancelled_subscriptions
     render 'index'
   end
 
@@ -50,6 +51,11 @@ class SubscriptionsController < ApplicationController
 
   def find_subscription
     @subscription = Subscription.find(params[:id])
+  end
+
+  def find_user
+    authorized_for(params[:user_id])
+    @user = current_user
   end
 
   def subscription_params
