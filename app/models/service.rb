@@ -3,28 +3,20 @@ class Service < ApplicationRecord
   has_many :service_tags
   has_many :price_records, dependent: :destroy
 
+  accepts_nested_attributes_for :price_records
+
   validates :name, presence: true, uniqueness: true
 
   def oldest_price_record
-    price_records.min_by(&:effective_from)
+    price_records&.min_by(&:effective_from)
   end
 
   def most_recent_price_record
-    price_records.max_by(&:effective_from)
+    price_records&.max_by(&:effective_from)
   end
 
   def current_price
-    most_recent_price_record.monthly_price
-  end
-
-  def current_price=(price)
-    if current_price != price.to_f
-      PriceRecord.create(
-        service_id: id,
-        effective_from: DateTime.now,
-        monthly_price: price.to_f
-      )
-    end
+    most_recent_price_record&.monthly_price
   end
 
   def total_users_lifetime
