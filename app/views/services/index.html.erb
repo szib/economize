@@ -1,28 +1,17 @@
 <div class="ui container">
-
-<div class="ui three column cards">
-
-  <% @services.each do |service| %>
-    <div class="ui card">
-      <div class="content">
-        <h2 class="header"><%= service.name %></h2>
-        <div class="meta">
-          <span class="date"><%= format_price(service.current_price) %>/month</span>
+  <div class="ui three column cards">
+    <% @services.each do |service| %>
+      <% content_for :card_bottom, flush: true do  %>
+        <div class="ui bottom attached button">
+          <i class="add icon"></i>
+          <%= link_to 'More details', service %>
         </div>
-        <div class="description">
-          <%= service.description %>
+        <div class="ui bottom attached button">
+          <i class="edit icon"></i>
+          <%= link_to 'Edit serivice', edit_service_path(service) %>
         </div>
-      </div>
-      <div class="extra content">
-        <i class="user icon"></i>
-        <%= service.visitor_count %> visitors
-      </div>
-      <div class="ui bottom attached button">
-        <i class="add icon"></i>
-        <%= link_to 'More', service %>
-      </div>
-    </div>
-  <% end %>
-
-</div>
+      <% end %>
+      <%= render 'card', service: service %>
+    <% end %>
+  </div>
 </div>

@@ -1,19 +1,11 @@
-<div class="ui raised very padded text container segment">
-
-    <h1 class=" column"><%= @service.name %></h1>
-  <div>
-  <hr>
-    <%= @service.description %>
-  <hr>  
+<% content_for :card_bottom do %>
+  <div class="ui bottom attached button">
+    <i class="edit icon"></i>
+    <%= link_to 'Edit service', edit_service_path(@service) %>
   </div>
-  <div class="ui internally celled two column grid">
-    <div class="row">
-      <h3 class="center aligned column">Monthly price</h3>
-      <h3 class="center aligned column">Visitors</h3>
-    </div>
-    <div class="row">
-      <h3 class="center aligned column"><%= @current_price %></h3>
-      <h3 class="center aligned column"><%= @service.visitor_count %></h3>
-    </div>
+<% end %>
+<div class="ui container">
+  <div class="ui one column cards">
+    <%= render 'card', service: @service %>
   </div>
 </div>

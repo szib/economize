@@ -3,8 +3,6 @@ class Service < ApplicationRecord
   has_many :service_tags
   has_many :price_records
 
-  accepts_nested_attributes_for :price_records
-
   validates :name, presence: true, uniqueness: true
 
   def oldest_price_record
@@ -17,6 +15,14 @@ class Service < ApplicationRecord
 
   def current_price
     most_recent_price_record.monthly_price
+  end
+
+  def current_price=(price)
+    PriceRecord.create(
+      service_id: id,
+      effective_from: DateTime.now,
+      monthly_price: price
+    )
   end
 
   def total_users_lifetime
