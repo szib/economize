@@ -2,7 +2,7 @@
 
 <div class="ui raised very padded text container segment">
   <h1 class="ui header">Sign in</h1>
-  
+
   <%= form_for :session, url: signin_path, html: { class: 'ui form' } do |f| %>
 
     <div class="field">
@@ -13,7 +13,7 @@
     </div>
 
     <div class="field">
-      <%= f.submit 'Signin', class: 'ui primary button' %>
+      <%= f.submit 'Sign In', class: 'ui primary button' %>
     </div>
 
   <% end %>

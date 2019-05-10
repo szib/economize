@@ -1,6 +1,15 @@
-<% title @user.first_name %>
 
 <div class="ui raised very padded text container segment">
-  <h1 class="ui header"><%= @user.full_name %></h1>
+  <h1 class="ui header">Your Details</h1>
+  <h2 class="ui header"><%= @user.full_name %></h2>
   <p>Email: <%= @user.email %></p>
+</div><br><br>
+
+<div class = "ui center aligned container">
+<div class="fluid massive ui olive vertical animated button" tabindex="0">
+  <div class="hidden content"><%= link_to 'Go To Dashboard', dashboards_path %></div>
+  <div class="visible content">
+    <i class="dashboard icon"></i>
+  </div>
 </div>
+</div><br>

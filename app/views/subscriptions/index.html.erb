@@ -5,13 +5,12 @@
     <% @subscriptions.each do |subscription| %>
       <% content_for :card_bottom, flush: true do  %>
         <div class="ui bottom attached button">
-          <i class="add icon"></i>
-          <%= link_to 'More details', subscription.service %>
+          <%= link_to 'more details', subscription.service %>
         </div>
         <div class="ui bottom attached button">
           <i class="cancel icon"></i>
-          <%= link_to 'Cancel serivice', user_cancel_subscription_path(@user, subscription), 
-                                                method: :delete, 
+          <%= link_to 'cancel my subscription', user_cancel_subscription_path(@user, subscription),
+                                                method: :delete,
                                                 data: { confirm: 'Are you sure?' } %>
         </div>
       <% end %>

@@ -3,8 +3,8 @@
 <% content_for :delete_button do %>
   <div class=" ui button">
     <i class="red cancel icon"></i>
-    <%= link_to 'Delete user', user_path(@user), 
-                                      method: :delete, 
+    <%= link_to 'Delete Account', user_path(@user), 
+                                      method: :delete,
                                       class: 'white',
                                       data: { confirm: 'Are you sure?' } %>
   </div>
