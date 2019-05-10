@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
   get '/service_stats', to: 'dashboards#service_stats', as: 'service_stats'
   get '/user_stats/:id', to: 'dashboards#user_stats', as: 'user_stats'
+  get '/user_stats/none/:id', to: 'dashboards#none', as: 'none'
+
 
 
   root 'welcome#home'
