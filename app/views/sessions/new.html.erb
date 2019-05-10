@@ -1,0 +1,21 @@
+<% title "Signin" %>
+
+<div class="ui raised very padded text container segment">
+  <h1 class="ui header">Sign in</h1>
+
+  <%= form_for :session, url: signin_path, html: { class: 'ui form' } do |f| %>
+
+    <div class="field">
+      <%= f.text_field :email, placeholder: 'Email address', autocomplete: 'email' %>
+    </div>
+    <div class="field">
+      <%= f.password_field :password, placeholder: 'Password', autocomplete: 'password' %>
+    </div>
+
+    <div class="field">
+      <%= f.submit 'Sign In', class: 'ui primary button' %>
+    </div>
+
+  <% end %>
+
+</div>

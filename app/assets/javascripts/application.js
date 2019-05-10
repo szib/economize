@@ -10,7 +10,24 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//
+// Loads all Semantic javascripts
+//= require semantic-ui
+//
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+// Close button in messages
+// TODO: make it work 
+$('.message .close')
+  .on('click', function() {
+    $(this)
+      .closest('.message')
+      .transition('fade')
+    ;
+  })
+;
+

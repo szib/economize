@@ -1,0 +1,24 @@
+
+<h2 class="fluid ui center aligned huge icon header">
+  <i class="file image outline icon"></i>
+  <div class="content">
+    All Services
+  </div>
+</h2><br>
+
+
+<div class="ui container">
+  <div class="ui three column cards">
+    <% @services.each do |service| %>
+      <% content_for :card_bottom, flush: true do  %>
+        <div class="ui bottom attached olive button">
+          <%= link_to 'see more', service %>
+        </div>
+        <div class="ui bottom attached olive button">
+          <%= link_to 'edit service', edit_service_path(service) %>
+        </div>
+      <% end %>
+      <%= render 'card', service: service %>
+    <% end %>
+  </div>
+</div>

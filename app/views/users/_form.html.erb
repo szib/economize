@@ -1,0 +1,27 @@
+<% if @user.errors.any? %>
+  <%= render 'layouts/form_error', model: @user %>
+<% end %>
+
+<%= form_for user, html: { class: 'ui form' } do |f| %>
+  <div class="field">
+    <%= f.text_field :first_name, placeholder: 'First name', autocomplete: 'first_name'%>
+  </div>
+  <div class="field">
+    <%= f.text_field :last_name, placeholder: 'Last name', autocomplete: 'last_name' %>
+  </div>
+  <div class="field">
+    <%= f.text_field :email, placeholder: 'Email address', autocomplete: 'email' %>
+  </div>
+  <div class="field">
+    <%= f.password_field :password, placeholder: 'Password', autocomplete: 'password' %>
+  </div>
+  <div class="field">
+    <%= f.password_field :password_confirmation, placeholder: 'Password confirmation', autocomplete: 'password_confirmation' %>
+  </div>
+  <div class="field">
+    <%= f.submit class: 'ui olive button' %>
+  </div>
+
+  <%= yield :delete_button %>
+
+<% end %>

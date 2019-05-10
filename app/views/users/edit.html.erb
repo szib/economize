@@ -1,0 +1,14 @@
+<% title @user.first_name %>
+
+<% content_for :delete_button do %>
+  <div class=" ui olive button">
+    <%= link_to 'Delete Account', user_path(@user),
+                                      method: :delete,
+                                      class: 'white',
+                                      data: { confirm: 'Are you sure?' } %>
+  </div>
+<% end %>
+
+<div class="ui center aligned container">
+  <%= render 'form', user: @user %>
+</div>
