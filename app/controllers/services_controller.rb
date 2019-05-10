@@ -33,7 +33,6 @@ class ServicesController < ApplicationController
       flash[:success] = 'Service successfully created'
       redirect_to @service
     else
-      flash[:error] = 'Something went wrong'
       render 'new'
     end
   end
@@ -48,7 +47,6 @@ class ServicesController < ApplicationController
       flash[:success] = 'Service was successfully updated'
       redirect_to @service
     else
-      flash[:error] = 'Something went wrong'
       render 'edit'
     end
   end
