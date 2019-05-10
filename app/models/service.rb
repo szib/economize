@@ -29,9 +29,13 @@ class Service < ApplicationRecord
   end
 
   def total_spent_lifetime
-    billing_dates = subscriptions.map(&:billing_dates_array).flatten!
-    prices = billing_dates.map { |day| monthly_price_on_given_day(day) }.compact
-    prices.sum.round(2)
+    if !subscriptions.empty?
+      billing_dates = subscriptions.map(&:billing_dates_array).flatten!
+      prices = billing_dates.map { |day| monthly_price_on_given_day(day) }.compact
+      prices.sum.round(2)
+    else
+      return 0
+    end
  end
 
   # predictions
