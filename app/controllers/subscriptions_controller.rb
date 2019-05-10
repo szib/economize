@@ -29,7 +29,7 @@ class SubscriptionsController < ApplicationController
       flash[:success] = "You successfully subscribed for #{@subscription.service_name}."
       redirect_to user_subscriptions_path
     else
-      flash[:error] = 'Something went wrong'
+      flash[:error] = 'You have already subscribed to this service.'
       render 'new'
     end
   end
@@ -39,7 +39,7 @@ class SubscriptionsController < ApplicationController
     @subscription.end_date = DateTime.now
 
     if @subscription.save
-      flash[:success] = "#{@subscription.service_name} has been cancelled."
+      flash[:success] = "Your subscription to #{@subscription.service_name} has been cancelled."
       redirect_to user_subscriptions_path
     else
       flash[:error] = 'Something went wrong'
