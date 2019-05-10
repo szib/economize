@@ -4,11 +4,10 @@
   <div class="ui three column cards">
     <% @subscriptions.each do |subscription| %>
       <% content_for :card_bottom, flush: true do  %>
-        <div class="ui bottom attached button">
+        <div class="ui bottom attached olive button">
           <%= link_to 'more details', subscription.service %>
         </div>
-        <div class="ui bottom attached button">
-          <i class="cancel icon"></i>
+        <div class="ui bottom attached olive button">
           <%= link_to 'cancel my subscription', user_cancel_subscription_path(@user, subscription),
                                                 method: :delete,
                                                 data: { confirm: 'Are you sure?' } %>

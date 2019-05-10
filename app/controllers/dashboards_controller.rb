@@ -13,7 +13,8 @@ class DashboardsController < ApplicationController
     @most_expensive_three = Service.most_expensive_three
     @ranked_by_total_users = Service.ranked_by_total_users
     @ranked_by_total_value_of_subscriptions = Service.ranked_by_total_value_of_subscriptions
-    @ranked_by_predicted_price_in_6_months = Service.ranked_by_predicted_price_in_6_months
+    @ranked_by_predicted_price_in_6_months = Service.ranked_by_predicted_price_in_6_months.select{|k,v| !v.nan?}.sort_by{|k,v| v}.reverse!
+
   end
 
   def user_stats

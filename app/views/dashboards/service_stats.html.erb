@@ -81,7 +81,7 @@
     <div class="content">
 
   <div class= "center aligned meta description"><span class= "descrip"> Services ranked by predicted monthly price in 6 months:  </span></div><br>
-  <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %>
+  <% @ranked_by_predicted_price_in_6_months.each_with_index do |item, index| %>
     <div class="center aligned description"><span style="font-weight:bold"><%= index+1 %>. <%= item[0] %>, at <%= format_price(item[1]) %></span></div><br>
   <% end %>
 
