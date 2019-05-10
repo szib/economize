@@ -1,0 +1,29 @@
+<% title "Subscriptions" %>
+<div class="ui container">
+  <div class="ui internally celled raised grid segment">
+    <div class="black row">
+      <h4 class="eight wide column header">
+        Service name
+      </h4>
+      <h4 class="four wide column header">
+        Subscription started
+      </h4>
+      <h4 class="four wide column header">
+        Subscription ended
+      </h4>
+    </div>
+    <% @subscriptions.each do |subscription| %>
+      <div class="row">
+        <div class="eight wide column">
+          <%= link_to subscription.service_name, subscription.service %>
+        </div>
+        <div class="four wide column">
+          <%= format_date(subscription.start_date) %>
+        </div>
+        <div class="four wide column">
+          <%= format_date(subscription.end_date) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

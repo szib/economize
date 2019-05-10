@@ -8,7 +8,6 @@ class SubscriptionsController < ApplicationController
 
   def archive
     @subscriptions = @user.cancelled_subscriptions
-    render 'index'
   end
 
   def show; end
