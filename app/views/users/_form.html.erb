@@ -1,3 +1,7 @@
+<% if @user.errors.any? %>
+  <%= render 'layouts/form_error', model: @user %>
+<% end %>
+
 <%= form_for user, html: { class: 'ui form' } do |f| %>
   <div class="field">
     <%= f.text_field :first_name, placeholder: 'First name', autocomplete: 'first_name'%>

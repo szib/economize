@@ -23,7 +23,6 @@ class UsersController < ApplicationController
       log_in @user
       redirect_to @user
     else
-      flash[:negative] = 'Something went wrong'
       render 'new'
     end
   end
@@ -34,7 +33,6 @@ class UsersController < ApplicationController
       flash[:positive] = 'Your details were successfully updated.'
       redirect_to @user
     else
-      flash[:negative] = 'Something went wrong'
       render 'edit'
     end
   end

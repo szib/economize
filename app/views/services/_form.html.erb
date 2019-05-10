@@ -1,3 +1,7 @@
+<% if @service.errors.any? %>
+  <%= render 'layouts/form_error', model: @service %>
+<% end %>
+
 <%= form_for @service, html: { class: 'ui form' } do |f| %>
   <div class="field">
     <%= f.text_field :name, placeholder: 'Service name' %>
