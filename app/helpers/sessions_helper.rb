@@ -23,7 +23,7 @@ module SessionsHelper
   def authorized_for(user_id)
     if current_user.id != user_id.to_i
       flash[:error] = "You're not allowed to view this page."
-      redirect_to root_path
+      redirect_to(root_path) && return
     end
   end
 
