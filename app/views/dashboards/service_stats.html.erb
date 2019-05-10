@@ -1,29 +1,89 @@
-<h1> General Service Stats <h1>
+<h2 class="fluid ui center aligned huge icon header">
+  <i class="chart pie icon"></i>
+  <div class="content">
+    General Service Stats
+  </div>
+</h2>
 
-  <h1> General Service Stats </h1>
-  <h2> Most addictive services, ranked: </h2>
+
+
+  <div class="ui two column grid">
+  <div class="column">
+    <div class="ui fluid raised card">
+      <div class="content">
+
+
+  <div class= "meta"><span class= "descrip">Most addictive services, ranked: </span></div>
   <h1> 1. <%= @most_addictive_three.keys[0] %>, with <%= @most_addictive_three.values[0] %> returning users. </h1>
   <h1> 2. <%= @most_addictive_three.keys[1] %>, with <%= @most_addictive_three.values[1] %> returning users. </h1>
   <h1> 3. <%= @most_addictive_three.keys[2] %>, with <%= @most_addictive_three.values[2] %> returning users. </h1><br>
 
-  <h2> Most expensive services, ranked: </h2>
-  <h1> 1. <%= @most_expensive_three.keys[0] %>, at <%= format_price(@most_expensive_three.values[0]) %>. </h1>
-  <h1> 2. <%= @most_expensive_three.keys[1] %>, at <%= format_price(@most_expensive_three.values[1]) %>. </h1>
-  <h1> 3. <%= @most_expensive_three.keys[2] %>, at <%= format_price(@most_expensive_three.values[2]) %>. </h1><br>
+    </div>
+    <div class="ui bottom attached olive button">
+        <%= link_to 'view all services', services_path %>
+      </div>
+  </div>
+</div>
 
-  <h2> Ranked by total number of users: </h2>
-  <% @ranked_by_total_users.each_with_index do |item, index| %> </h1>
-  <h1> <%= index+1 %>. <%= item[0] %>,  number of users:  <%= item[1] %> </h1>
-  <% end %>
-  <br>
 
-  <h2> Ranked by total value of subscriptions: </h2>
-  <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %> </h1>
-  <h1> <%= index+1 %>. <%= item[0] %>, at <%= format_price(item[1]) %> </h1>
-  <% end %>
-  <br>
 
-  <h2> Ranked by predicted monthly price in 6 months: </h1>
-  <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %> </h1>
-  <h1> <%= index+1 %>. <%= item[0] %>, at <%= format_price(item[1]) %> </h1>
+<div class="column">
+   <div class="ui fluid raised card">
+     <div class="content">
+       <div class= "meta"><span class= "descrip">Most expensive services, ranked:</span></div>
+
+ <h1> 1. <%= @most_expensive_three.keys[0] %>, at <%= format_price(@most_expensive_three.values[0]) %>. </h1>
+ <h1> 2. <%= @most_expensive_three.keys[1] %>, at <%= format_price(@most_expensive_three.values[1]) %>. </h1>
+ <h1> 3. <%= @most_expensive_three.keys[2] %>, at <%= format_price(@most_expensive_three.values[2]) %>. </h1><br>
+
+     </div>
+     <div class="ui bottom attached olive button">
+         <%= link_to 'view all services', services_path %>
+       </div>
+   </div>
+ </div>
+</div>
+
+
+ <div class="ui two grid column">
+   <a class="ui fluid raised card" href= <%= services_path %>>
+     <div class="content">
+
+
+  <div class= "center aligned meta description"><span class= "descrip"> Services ranked by total number of users: </span></div><br>
+    <% @ranked_by_total_users.each_with_index do |item, index| %>
+      <div class="center aligned description"><span style="font-weight:bold"><%= index+1 %>. <%= item[0] %>,  number of users:  <%= item[1] %></span></div><br>
+   <% end %>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="column">
+   <a class="ui fluid raised card" href= <%= services_path %>>
+    <div class="content">
+
+
+  <div class= "center aligned meta description"><span class= "descrip"> Services ranked by total value of subscriptions: </span></div><br>
+  <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %>
+    <div class="center aligned description"><span style="font-weight:bold"><%= index+1 %>. <%= item[0] %>, at <%= format_price(item[1]) %></span></div><br>
   <% end %>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+   <a class="ui fluid raised card" href= <%= services_path %>>
+    <div class="content">
+
+  <div class= "center aligned meta description"><span class= "descrip"> Services ranked by predicted monthly price in 6 months:  </span></div><br>
+  <% @ranked_by_total_value_of_subscriptions.each_with_index do |item, index| %>
+    <div class="center aligned description"><span style="font-weight:bold"><%= index+1 %>. <%= item[0] %>, at <%= format_price(item[1]) %></span></div><br>
+  <% end %>
+
+    </div>
+  </div>
