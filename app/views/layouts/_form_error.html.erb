@@ -1,0 +1,10 @@
+<div id="error_explanation" class="ui vary padded raised container">
+  <h2><%= pluralize(model.errors.count, "error") %> prohibited this form from being saved:</h2>
+  <div class="ui bulleted list">
+    <% model.errors.full_messages.each do |msg| %>
+      <div class="item">
+        <%= msg %>
+      </div>
+    <% end %>
+  </ul>
+</div>
