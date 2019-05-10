@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User registration', type: :feature do
-  scenario 'User register' do
+  scenario 'User can register' do
     visit '/signup'
 
     fill_in 'user_first_name', with: 'Arya'
