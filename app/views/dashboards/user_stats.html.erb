@@ -5,37 +5,37 @@
   </div>
 </h2>
 
-<% if @active_subscriptions != {} %>
+<%# if @active_subscriptions != {} %>
 <h4 class="fluid ui center aligned huge header"> Your active subscriptions</h4>
 <div class = "ui center aligned container">
     <table class="ui center aligned inverted black celled table">
-      <% @active_subscriptions.each do |subscription| %>
+      <%# @active_subscriptions.each do |subscription| %>
         <tr>
-        <td class = "selectable"><%= link_to subscription[0], service_path(Service.find_by_name(subscription[0])) %></td>
-        <td><%= format_price(subscription[1]) %></td>
+        <td class = "selectable"><%#= link_to subscription[0], service_path(Service.find_by_name(subscription[0])) %></td>
+        <td><%#= format_price(subscription[1]) %></td>
         </tr>
-      <% end %>
+      <%# end %>
 
     </table>
 </div>
-<% end %>
+<%# end %>
 
-<% if @most_expensive_service %>
+<%# if @most_expensive_service %>
   <h4 class="fluid ui center aligned huge header">Subscription with the highest monthly fee</h4>
   <div class = "ui center aligned container">
   <div class="fluid massive ui olive vertical animated button" tabindex="0">
-    <div class="hidden content"><%= @most_expensive_service[0]%> - <%= format_price(@most_expensive_service[1])%></div>
+    <div class="hidden content"><%#= @most_expensive_service[0]%> - <%#= format_price(@most_expensive_service[1])%></div>
     <div class="visible content">
       <i class="chart pie icon"></i>
     </div>
   </div>
   </div><br><br>
-<% end %>
+<%# end %>
 
 <h4 class="fluid ui center aligned huge header"> Total spent on (all) subscriptions</h4>
 <div class = "ui center aligned container">
 <div class="fluid massive ui olive vertical animated button" tabindex="0">
-  <div class="hidden content"><%= format_price(@lifetime_spend) %></div>
+  <div class="hidden content"><%#= format_price(@lifetime_spend) %></div>
   <div class="visible content">
     <i class="chart pie icon"></i>
   </div>
@@ -45,7 +45,7 @@
 <h4 class="fluid ui center aligned huge header"> Spending for the current month </h4>
 <div class = "ui center aligned container">
 <div class="fluid massive ui olive vertical animated button" tabindex="0">
-  <div class="hidden content"><%= format_price(@total_spend_current_month) %></div>
+  <div class="hidden content"><%#= format_price(@total_spend_current_month) %></div>
   <div class="visible content">
     <i class="chart pie icon"></i>
   </div>
@@ -55,18 +55,18 @@
 <h4 class="fluid ui center aligned huge header">Breakdown of spending </h4>
 <div class = "ui center aligned container">
     <table class="ui center aligned inverted black celled table">
-      <% @total_spend_by_subscription.each do |item| %>
+      <%# @total_spend_by_subscription.each do |item| %>
         <tr>
-        <td class= "selectable"><%= link_to item[0], service_path(Service.find_by_name(item[0])) %></td>
-        <td><%= format_price(item[1]) %></td>
+        <td class= "selectable"><%#= link_to item[0], service_path(Service.find_by_name(item[0])) %></td>
+        <td><%#= format_price(item[1]) %></td>
         </tr>
-      <% end %>
+      <%# end %>
 
     </table>
 </div>
 
 <h4 class="fluid ui center aligned huge header"> Subscriptions you've cancelled </h4>
-<% if @cancelled_services == [] %>
+<%# if @cancelled_services == [] %>
 <div class = "ui center aligned container">
   <div class="fluid massive ui olive vertical animated button" tabindex="0">
       <div class="hidden content">none</div>
@@ -76,18 +76,18 @@
     </div>
    </div>
   </div><br><br>
- <% else %>
+ <%# else %>
    <div class = "ui center aligned container">
        <table class="ui center aligned inverted black celled table">
-         <% @cancelled_services.each do |item| %>
+         <%# @cancelled_services.each do |item| %>
            <tr>
-           <td class="selectable"><%= link_to item, service_path(Service.find_by_name(item)) %></td>
+           <td class="selectable"><%#= link_to item, service_path(Service.find_by_name(item)) %></td>
            </tr>
-         <% end %>
+         <%# end %>
 
        </table>
    </div>
-  <% end %>
+  <%# end %>
 
   <h4 class="fluid ui center aligned huge header">Predictions for future spending, based on your active subscriptions and estimated increases
     in subscription prices. </h4>
@@ -95,15 +95,15 @@
         <table class="ui center aligned inverted red celled table">
             <tr>
             <td>Predicted spending for the next month</td>
-            <td><%= format_price(@predicted_spend_next_month)%></td>
+            <td><%#= format_price(@predicted_spend_next_month)%></td>
             </tr>
             <tr>
             <td>Predicted monthly spending for 3 months from now</td>
-            <td><%= format_price(@predicted_spend_3_months) %></td>
+            <td><%#= format_price(@predicted_spend_3_months) %></td>
             </tr>
             <tr>
             <td>Predicted monthly spending for 6 months from now</td>
-            <td><%= format_price(@predicted_spend_6_months) %></td>
+            <td><%#= format_price(@predicted_spend_6_months) %></td>
             </tr>
 
         </table>

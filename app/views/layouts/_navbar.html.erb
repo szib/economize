@@ -1,7 +1,7 @@
 <div class="ui attached stackable menu">
   <div class="ui container">
     <% if logged_in? %>
-      <a class="item" href="<%= dashboards_path %>">
+      <a class="item" href="<%= dashboard_path %>">
         <i class="dashboard icon"></i> Dashboard
       </a>
     <% else %>
@@ -19,7 +19,7 @@
           <hr>
         <% end %>
         <%= link_to raw('<i class="list icon"></i> All Services'), services_path, class: 'item' %>
-        <%= link_to raw('<i class="chart area icon"></i> Service Statistics'), service_stats_path, class: 'item' %>
+        <%= link_to raw('<i class="chart area icon"></i> Service Statistics'), services_stats_path, class: 'item' %>
       </div>
     </div>
 

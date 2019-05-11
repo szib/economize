@@ -10,100 +10,16 @@ class Account < ApplicationRecord
     subscriptions.reject(&:active?)
   end
 
-  # data to display to user on the dashboard
-  def most_expensive_service
-    # services with highest monthly fees that user is currently subscribed to
-    # returns hash e.g. {"Netflix"=>20.1}
-    active_subscriptions_ordered_by_price.first
- end
-
-  def lifetime_spend
-    # sum of all subscriptions + corresponding months * monthly price at the time
-    # errors
-    total_spend = 0
-    subscriptions.each do |subscription|
-      subscription.billing_dates_array.each do |day|
-        total_spend += subscription.service.monthly_price_on_given_day(day)
-      end
-    end
-    total_spend.round(2)
+  def num_of_subs_to(service_id)
+    Subscription.where('account_id = ? AND service_id = ?', id, service_id).count(:id) || 0
   end
 
-  def total_spend_current_month
-    active_subscriptions_ordered_by_price.values.sum.round(2)
+  def first_subscriber?(service_id)
+    num_of_subs_to(service_id) == 1
   end
 
-  def total_spend_by_subscription
-    # returns hash e.g. {"Netflix"=>261.3, "Amazon Prime"=>15.99, "Spotify"=>10.2}
-    h = {}
-    subscriptions.each do |subscription|
-      total_spend = 0
-      subscription.billing_dates_array.each do |day|
-        total_spend += subscription.service.monthly_price_on_given_day(day)
-      end
-      h[subscription.service.name] = total_spend.round(2)
-    end
-    h.sort_by { |_k, v| v }.reverse!.to_h
- end
+  def returning_subscriber?(service_id)
+    num_of_subs_to(service_id) > 1
+  end
 
-  def active_subscriptions_ordered_by_price
-    # returns hash e.g. {"Amazon Prime"=>15.99, "Spotify"=>10.2}
-    h = {}
-    services_of_active_subscriptions = subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
-    services_of_active_subscriptions.each do |service|
-      h[service.name] = service.monthly_price_on_given_day(DateTime.now)
-    end
-    h.sort_by { |_k, v| v }.reverse!.to_h
- end
-
-  def cancelled_services
-    # returns array of names of non-active subscriptions
-    services_of_non_active_subscriptions = subscriptions.reject { |subscription| subscription.end_date.nil? }.map(&:service).map(&:name)
-    services_of_active_subscriptions = subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service).map(&:name)
-    services_of_non_active_subscriptions.reject { |service| services_of_active_subscriptions.include?(service) }.uniq
- end
-
-
- def total_monthly_increase
-   total = 0
-   services_of_active_subscriptions = self.subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
-   services_of_active_subscriptions.each do |service|
-     monthly_increase = service.avg_monthly_price_increase
-     if monthly_increase.nan?
-     end
-
-   end
- end
-
-
-
- def predicted_spending_in_x_time(month, year)
-     # method input = integer >= 1 and <= 12
-     total_spent = 0
-     services_of_active_subscriptions = self.subscriptions.select { |subscription| subscription.end_date.nil? }.map(&:service)
-     services_of_active_subscriptions.each do |service|
-       monthly_increase = service.avg_monthly_price_increase
-       #last_price_record = service.most_recent_price_record
-       current_service_price = service.current_price
-       date = DateTime.now
-       month_difference = ((year * 12 + month) - (date.year * 12 + date.month))
-
-       if !current_service_price.nil? && !monthly_increase.nil? && !monthly_increase.nan?
-         total_spent = total_spent+((month_difference * monthly_increase) + current_service_price)
-       elsif !current_service_price.nil? && !monthly_increase.nil? && monthly_increase.nan?
-         total_spent = total_spent+current_service_price
-       else
-         total_spent = total_spent
-       end
-       #puts monthly_increase
-       #puts month_difference
-       #puts current_service_price
-     end
-     total_spent
-   end
-
-  def budget_calculator; end
-
-  # helper methods
-  # private
 end
