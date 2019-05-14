@@ -31,4 +31,45 @@ class Subscription < ApplicationRecord
   def value
     service.current_price
   end
+
+  def billing_day
+    start_date.to_date.day
+  end
+
+  def billing_day_in(year: Date.today.year, month: Date.today.month)
+    Date.new(year, month, billing_day)
+  rescue ArgumentError => e
+    Date.new(year, month, 1).end_of_month
+  end
+
+  def billing_day_this_month
+    billing_day_in(year: Date.today.year, month: Date.today.month)
+  end
+
+  def billing_day_last_month
+    today = Date.today << 1
+    billing_day_in(year: Date.today.year, month: Date.today.month)
+  end
+
+  def billing_dates
+    dates = [start_date.to_date]
+    last_date = end_date&.to_date || Date.today
+
+    loop do
+      next_date = dates.last >> 1
+      break if next_date > last_date
+
+      dates << next_date
+    end
+    dates
+  end
+
+  def price_on(date)
+    service.price_on(date)
+  end
+
+  def total_value
+    billing_dates.map { |bd| price_on(bd) }.sum
+  end
+
 end

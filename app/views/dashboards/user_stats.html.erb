@@ -20,22 +20,24 @@
 </div>
 <%# end %>
 
-<%# if @most_expensive_service %>
+<% if @most_expensive_subscription %>
   <h4 class="fluid ui center aligned huge header">Subscription with the highest monthly fee</h4>
   <div class = "ui center aligned container">
   <div class="fluid massive ui olive vertical animated button" tabindex="0">
-    <div class="hidden content"><%#= @most_expensive_service[0]%> - <%#= format_price(@most_expensive_service[1])%></div>
+    <div class="hidden content">
+      <%= @most_expensive_subscription.service.name %> - <%= format_price(@most_expensive_subscription.value)%>
+    </div>
     <div class="visible content">
       <i class="chart pie icon"></i>
     </div>
   </div>
   </div><br><br>
-<%# end %>
+<% end %>
 
 <h4 class="fluid ui center aligned huge header"> Total spent on (all) subscriptions</h4>
 <div class = "ui center aligned container">
 <div class="fluid massive ui olive vertical animated button" tabindex="0">
-  <div class="hidden content"><%#= format_price(@lifetime_spend) %></div>
+  <div class="hidden content"><%= format_price(@lifetime_spend) %></div>
   <div class="visible content">
     <i class="chart pie icon"></i>
   </div>
@@ -45,7 +47,9 @@
 <h4 class="fluid ui center aligned huge header"> Spending for the current month </h4>
 <div class = "ui center aligned container">
 <div class="fluid massive ui olive vertical animated button" tabindex="0">
-  <div class="hidden content"><%#= format_price(@total_spend_current_month) %></div>
+  <div class="hidden content">
+    <%= format_price(@total_spend_current_month) %>
+  </div>
   <div class="visible content">
     <i class="chart pie icon"></i>
   </div>

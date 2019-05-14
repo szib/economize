@@ -1,4 +1,5 @@
 class DashboardsController < ApplicationController
+  before_action :find_user, only: :user_stats
   # all info we can display to the user
   def index
     # general, service_related data
@@ -17,5 +18,15 @@ class DashboardsController < ApplicationController
   def user_stats
     # personal, user-specific data
     authorized_for(current_user.id)
+    account = @user.account
+    @most_expensive_subscription = account.most_expensive_subscription
+    @total_spend_current_month = account.total_spend_current_month
+    @lifetime_spend = account.lifetime_spend
+  end
+
+  private
+
+  def find_user
+    @user = User.find(params[:user_id])
   end
 end

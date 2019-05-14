@@ -22,4 +22,18 @@ class Account < ApplicationRecord
     num_of_subs_to(service_id) > 1
   end
 
+  # ========================================
+  #    METHODS FOR USER'S DASHBOARD
+  # ========================================
+  def most_expensive_subscription
+    subscriptions.max_by(&:value)
+  end
+
+  def total_spend_current_month
+    subscriptions.map(&:value).sum
+  end
+
+  def lifetime_spend
+    subscriptions.map(&:total_value).sum
+  end
 end

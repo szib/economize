@@ -91,4 +91,8 @@ class Service < ApplicationRecord
   def self.ranked_by_future_price(_limit = nil)
     services = Service.all.sort_by(&:future_price).last(10).reverse
   end
+
+  def price_on(date)
+    price_records.select { |pr| pr.effective_from <= date }.max_by(&:effective_from).monthly_price
+  end
 end
