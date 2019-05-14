@@ -26,12 +26,12 @@ class Account < ApplicationRecord
   #    METHODS FOR USER'S DASHBOARD
   # ========================================
   def most_expensive_subscription
-    subscriptions.max_by(&:value)
+    active_subscriptions.max_by(&:value)
   end
 
   def total_spend_current_month
-    subscriptions.map(&:value).sum
-    # subscriptions.map.sum
+    # TODO: use billing date
+    active_subscriptions.map(&:value).sum
   end
 
   def lifetime_spend
