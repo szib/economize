@@ -2,12 +2,12 @@ class Account < ApplicationRecord
   belongs_to :user
   has_many :subscriptions, dependent: :destroy
 
-  def active_subscriptions
-    subscriptions.select(&:active?)
+  def active_subscriptions(date = DateTime.now)
+    subscriptions.select { |subs| subs.active?(date) }
   end
 
-  def cancelled_subscriptions
-    subscriptions.reject(&:active?)
+  def cancelled_subscriptions(date = DateTime.now)
+    subscriptions.select { |subs| subs.cancelled?(date) }
   end
 
   def num_of_subs_to(service_id)
@@ -31,6 +31,7 @@ class Account < ApplicationRecord
 
   def total_spend_current_month
     subscriptions.map(&:value).sum
+    # subscriptions.map.sum
   end
 
   def lifetime_spend

@@ -16,12 +16,12 @@ class Subscription < ApplicationRecord
     errors.add(:base, 'Already subscribed.') if subscription.present?
   end
 
-  def active?
-    end_date.nil?
+  def active?(date = DateTime.now)
+    start_date < date && (end_date.nil? || end_date > date)
   end
 
-  def cancelled?
-    !active?
+  def cancelled?(date = DateTime.now)
+    !active?(date)
   end
 
   def service_name
@@ -71,5 +71,4 @@ class Subscription < ApplicationRecord
   def total_value
     billing_dates.map { |bd| price_on(bd) }.sum
   end
-
 end
