@@ -16,37 +16,59 @@ class Subscription < ApplicationRecord
     errors.add(:base, 'Already subscribed.') if subscription.present?
   end
 
-  def active?
-    end_date.nil?
+  def active?(date = DateTime.now)
+    start_date < date && (end_date.nil? || end_date > date)
+  end
+
+  def cancelled?(date = DateTime.now)
+    !active?(date)
   end
 
   def service_name
     service.name
   end
 
-  def subscription_length_in_months
-    start_date = self.start_date
-    end_date = if !self.end_date.nil?
-                 self.end_date
-               else
-                 DateTime.now
-               end
-
-    length_in_days = (end_date.to_i - start_date.to_i) / (3600 * 24)
-    length_in_months = if length_in_days % 30 == 0 || length_in_days == 365 || 366
-                         length_in_days / 30
-                       else
-                         (length_in_days / 30) + 1
-                       end
+  def value
+    service.current_price
   end
 
-  def billing_dates_array
-    start_date = self.start_date
-    billing_dates = []
-    billing_dates << start_date
-    subscription_length_in_months.times do
-      billing_dates << billing_dates.last + 1.month
+  def billing_day
+    start_date.to_date.day
+  end
+
+  def billing_day_in(year: Date.today.year, month: Date.today.month)
+    Date.new(year, month, billing_day)
+  rescue ArgumentError => e
+    Date.new(year, month, 1).end_of_month
+  end
+
+  def billing_day_this_month
+    billing_day_in(year: Date.today.year, month: Date.today.month)
+  end
+
+  def billing_day_last_month
+    today = Date.today << 1
+    billing_day_in(year: Date.today.year, month: Date.today.month)
+  end
+
+  def billing_dates
+    dates = [start_date.to_date]
+    last_date = end_date&.to_date || Date.today
+
+    loop do
+      next_date = dates.last >> 1
+      break if next_date > last_date
+
+      dates << next_date
     end
-    billing_dates
- end
+    dates
+  end
+
+  def price_on(date)
+    service.price_on(date)
+  end
+
+  def total_value
+    billing_dates.map { |bd| price_on(bd) }.sum
+  end
 end

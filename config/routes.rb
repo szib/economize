@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
+  get '/services/stats', to: 'dashboards#services_stats'
   resources :services
+
   resources :users do
     # ========================================
     #   NESTED ROUTES FOR SUBSCRIPTIONS
     # ========================================
     get '/subscriptions/archive', to: 'subscriptions#archive', as: 'archive_subscriptions'
     delete '/subscriptions/:id/cancel', to: 'subscriptions#cancel', as: 'cancel_subscription'
+
     resources :subscriptions, only: %i[index show new create]
+
+    # PERSONAL DASHBOARD
+    get '/stats', to: 'dashboards#user_stats'
   end
 
   get '/signup', to: 'users#new'
@@ -15,14 +21,11 @@ Rails.application.routes.draw do
   post '/signin', to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
 
-  get '/dashboards', to: 'dashboards#index'
-  get '/dashboards/:id', to: 'dashboards#show'
+  # ========================================
+  #    DASHBOARD
+  # ========================================
+  get '/dashboard', to: 'dashboards#index'
 
-  get '/service_stats', to: 'dashboards#service_stats', as: 'service_stats'
-  get '/user_stats/:id', to: 'dashboards#user_stats', as: 'user_stats'
-  get '/user_stats/none/:id', to: 'dashboards#none', as: 'none'
-
-
-
+  # HOME
   root 'welcome#home'
 end
