@@ -19,106 +19,80 @@ class Service < ApplicationRecord
     most_recent_price_record&.monthly_price
   end
 
-  def total_users_lifetime
-    # not unique subscriptions
-    subscriptions.map(&:account_id).uniq.size
-  end
-
   def total_active_subscriptions
     subscriptions.map(&:end_date).select(&:nil?).size
   end
 
-  def total_spent_lifetime
-    if !subscriptions.empty?
-      billing_dates = subscriptions.map(&:billing_dates_array).flatten!
-      prices = billing_dates.map { |day| monthly_price_on_given_day(day) }.compact
-      prices.sum.round(2)
-    else
-      return 0
-    end
- end
-
-  # predictions
-  def avg_monthly_price_increase
-    first_date = self.price_records.sort_by(&:effective_from).map(&:effective_from).first
-    final_date = self.price_records.sort_by(&:effective_from).map(&:effective_from).last
-    monthly_difference = (final_date.year * 12 + final_date.month) - (first_date.year * 12 + first_date.month)
-    first_price = self.price_records.sort_by(&:effective_from).map(&:monthly_price).first
-    last_price = self.price_records.sort_by(&:effective_from).map(&:monthly_price).last
-    price_difference = (last_price - first_price) / monthly_difference
-    price_difference.round(2)
+  def account_ids
+    subscriptions.map(&:account_id).uniq
   end
 
-  def avg_yearly_price_increase
-    self.avg_monthly_price_increase * 12.round(2)
- end
-
-  def predicted_price_in_6_months
-    self.avg_monthly_price_increase * 6.round(2) + monthly_price_on_given_day(DateTime.now)
+  def num_of_users
+    subscriptions.map(&:account_id).uniq.count
   end
 
-  def predicted_price_in_3_months
-    self.avg_monthly_price_increase * 3.round(2) + monthly_price_on_given_day(DateTime.now)
+  def first_subscriber?(account_id)
+    Subscription.where('account_id = ? AND service_id = ?', account_id, id).count(:id) == 1
   end
 
-  def predicted_price_in_12_months
-    self.avg_monthly_price_increase * 12.round(2) + monthly_price_on_given_day(DateTime.now)
+  def returning_customer?(account_id)
+    !first_subscriber?(account_id)
   end
 
-  def self.ranked_by_predicted_price_in_6_months
-    h = {}
-    all.each do |service|
-      h[service.name] = service.predicted_price_in_6_months
-    end
-    h
-    #h.compact.sort_by { |_k, v| v }.reverse!.to_h
+  def num_of_returning_users
+    account_ids.select { |account_id| returning_customer?(account_id) }.count
   end
 
- def self.ranked_by_total_value_of_subscriptions
-   h = {}
-   all.each do |service|
-     h[service.name] = service.total_spent_lifetime
-   end
-   h.sort_by { |_k, v| v }.reverse!.to_h
-end
+  def returning_percentage
+    return 0 if num_of_users == 0
 
-
-
-  def self.ranked_by_total_users
-    h = {}
-    all.each do |service|
-      h[service.name] = service.total_users_lifetime
-    end
-    h.sort_by { |_k, v| v }.reverse!.to_h
- end
-
- def self.most_addictive_three
-    # service with the highest number of returning users
-    # returns hash e.g. {"Spotify"=>3, "Netflix"=>1, "Amazon Prime"=>0}
-    h = {}
-    all.each do |service|
-      account_ids = service.subscriptions.map(&:account_id)
-      h[service.name] = account_ids.select { |id| account_ids.count(id) > 1 }.uniq.size
-    end
-    h.sort_by { |_k, v| v }.reverse!.take(3).to_h
+    num_of_returning_users / num_of_users.to_f * 100
   end
 
-  def self.most_expensive_three
-    # returns hash e.g. {"Netflix"=>20.1, "Amazon Prime"=>15.5, "Spotify"=>7.99}
-    h = {}
-    all.each do |service|
-      h[service.name] = service.monthly_price_on_given_day(DateTime.now)
-    end
-    h.sort_by { |_k, v| v }.reverse!.take(3).to_h
- end
+  def subscription_value
+    subscriptions.select(&:active?).map(&:value).sum
+  end
 
-  def monthly_price_on_given_day(day) #=DateTime.new(2019,3,4))
-    sorted_price_records = price_records.sort_by(&:effective_from)
-    pr = sorted_price_records.select { |pr| pr.effective_from < day }.last
-    if pr.nil?
-      return nil
-    else
-      return pr.monthly_price
-    end
-    end
+  def age_in_days
+    (most_recent_price_record.effective_from.to_date - oldest_price_record.effective_from.to_date).to_i
+  end
+
+  def monthly_price_increase
+    price_diff = most_recent_price_record.monthly_price - oldest_price_record.monthly_price
+    return 0 if price_diff == 0
+
+    (price_diff / age_in_days) * 30
+  end
+
+  def future_price(months_from_now = 6)
+    current_price + (monthly_price_increase * months_from_now)
+  end
+
+  # ========================================
+  #    METHODS FOR DASHBOARD
+  # ========================================
+
+  def self.most_expensive
+    Service.all.sort_by(&:current_price).last(10).reverse
+  end
+
+  def self.ranked_by_num_of_users
+    services = Service.all.sort_by(&:num_of_users).last(10).reverse
+  end
+
+  def self.ranked_by_addictiveness
+    services = Service.all.sort_by(&:returning_percentage).last(10).reverse
+  end
+
+  def self.ranked_by_value
+    services = Service.all.sort_by(&:subscription_value).last(10).reverse
+  end
+
+  def self.ranked_by_future_price(_limit = nil)
+    services = Service.all.sort_by(&:future_price).last(10).reverse
+  end
+
+  def price_on(date)
+    price_records.select { |pr| pr.effective_from <= date }.max_by(&:effective_from).monthly_price
+  end
 end

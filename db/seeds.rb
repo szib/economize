@@ -2,8 +2,8 @@ require 'faker'
 users = []
 users << {
   first_name: 'Ivan',
-  last_name: 'Szebenszki',
-  email: 'ivan.szebenszki@flatironschool.com',
+  last_name: 'Smith',
+  email: 'ivan@example.com',
   password: '111111',
   password_confirmation: '111111'
 }
